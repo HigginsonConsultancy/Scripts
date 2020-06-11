@@ -16,7 +16,7 @@ Try
     {
     EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Information -Message "Attempting to download media"
     $url="https://github.com/HigginsonConsultancy/Media/raw/master/Orca.zip"
-    $output="c:\Temp\Orca.zip"
+    $output="c:\Windows\Temp\Orca.zip"
     (New-Object System.Net.WebClient).DownloadFile($url, $output)
     }
     
@@ -28,7 +28,7 @@ Try
 Try
     {
     EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Information -Message "Starting to expand media to correct location"
-    Expand-Archive -LiteralPath $output -DestinationPath C:\Temp\
+    Expand-Archive -LiteralPath $output -DestinationPath C:\Windows\Temp\
     }
     
     Catch
@@ -39,7 +39,7 @@ Try
 Try
     {
     EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Information -Message "Starting Application Install"
-    $Argument3 = "/i " + [char]34 + "C:\Temp\Orca\Orca-x86_en-us.msi" + [char]34 + " /qb"
+    $Argument3 = "/i " + [char]34 + "C:\Windows\Temp\Orca\Orca-x86_en-us.msi" + [char]34 + " /qb"
     Start-Process -FilePath msiexec.exe -ArgumentList $Argument3 -Wait
         }
     
