@@ -22,7 +22,7 @@ Try
     
     Catch
     {
-    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message "Unable to download media successfully"
+    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message $error[0].Exception
     }
 
 Try
@@ -33,7 +33,7 @@ Try
     
     Catch
     {
-    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message "Unable to extract zip file successfully"
+    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message $error[0].Exception
     }
 
 Try
@@ -45,7 +45,7 @@ Try
     
     Catch
     {
-    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message "Unable to install application"
+    Write-EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Error -Message $error[0].Exception
     }
 
 EventLog -LogName $EventlogName -Source $EventlogSource -EventID 25101  -EntryType Information -Message "VM Build Script Completed"
