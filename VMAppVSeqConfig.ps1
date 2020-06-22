@@ -59,7 +59,7 @@ Try
 # Install Orca
 Try
     {
-    $Argument3 = "/i " + [char]34 + "C:\Windows\Temp\Orca\Orca-x86_en-us.msi" + [char]34 + " /qb"
+    $Argument3 = "/i " + [char]34 + "C:\Windows\Temp\Orca\Orca-x86_en-us.msi" + [char]34 + " /qn"
     Start-Process -FilePath msiexec.exe -ArgumentList $Argument3 -Wait
         }
     
@@ -71,7 +71,7 @@ Try
 # Install App-V Sequencer
 Try
     {
-    $Argument3 = "/i " + [char]34 + "C:\Windows\Temp\AppVSequencer1903x64\Appman Sequencer on amd64-x64_en-us.msi" + [char]34 + " /qb"
+    $Argument3 = "/i " + [char]34 + "C:\Windows\Temp\AppVSequencer1903x64\Appman Sequencer on amd64-x64_en-us.msi" + [char]34 + " /qn"
     Start-Process -FilePath msiexec.exe -ArgumentList $Argument3 -Wait
         }
     
