@@ -43,6 +43,8 @@ function CreateStorageAccount {
         $Container = New-AzStorageContainer -Name $ContainerName -Context $ctx -Permission Container
         If ($storageAccount.StorageAccountName -eq $StorAcc -and $Container.Name -eq $ContainerName) {Write-Host "Storage Account and container created successfully"}Else{Write-Host "*** Unable to create the Storage Account or container! ***"}    
         #$BlobUpload = Set-AzStorageBlobContent -File $BlobFilePath -Container $ContainerName -Blob $Blob -Context $ctx 
+        
+        
         Try
         {
             $Key = Get-AzStorageAccountKey -ResourceGroupName $RGName -AccountName $StorAcc
@@ -50,10 +52,12 @@ function CreateStorageAccount {
             $MapFileContent.replace("yyyy",$Key.value[0]) | Set-Content -path "C:\Temp\PackagingVM\Config\MapDrv.ps1"      
             $RunOnceContent = (Get-Content -path "$ContainerScripts\RunOnceTmpl.ps1").replace("xxxx",$StorAcc)
             $RunOnceContent.replace("rrrr",$RGName) | Set-Content -path "C:\Temp\PackagingVM\Config\RunOnce.ps1"
+            $AdminStudioContent = (Get-Content -path "$ContainerScripts\AdminStudioTmpl.ps1").replace("xxxx",$StorAcc)
+            $AdminStudioContent.replace("rrrr",$RGName) | Set-Content -path "C:\Temp\PackagingVM\Config\AdminStudio.ps1"
         }
         Catch
         {
-            Write-Error "An error occured trying to create the Map script for the packaging share."
+            Write-Error "An error occured trying to create the build scripts from the Tmpl files."
             Write-Error $_.Exception.Message
         }
         Get-ChildItem -Path $ContainerScripts -File -Recurse | Set-AzStorageBlobContent -Container "data" -Context $ctx
